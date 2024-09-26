@@ -49,11 +49,11 @@ class User extends Authenticatable
     }
 
     public function ideas():HasMany{
-        return $this->hasMany((Idea::class));
+        return $this->hasMany(Idea::class);
     }
 
     public function ideasLiked():BelongsToMany{
-        return $this->belongsToMany((Idea::class));
+        return $this->belongsToMany(Idea::class);
     }
 
 }
