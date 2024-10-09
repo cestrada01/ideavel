@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Idea;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -17,10 +18,10 @@ class IdeaController extends Controller
 
     public function create(): View
     {
-        return view('ideas.create');
+        return view('ideas.create_edit');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         //dd($request->all());
         $validated = $request->validate([
@@ -35,5 +36,11 @@ class IdeaController extends Controller
         ]);
 
         return redirect()->route('idea.index');
+    }
+
+    public function edit(Idea $idea): View
+    {
+        //$idea = Idea::findOrFail($id);
+        return view('ideas.create_edit')->with('idea', $idea);
     }
 }
