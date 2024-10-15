@@ -43,4 +43,28 @@ class IdeaController extends Controller
         //$idea = Idea::findOrFail($id);
         return view('ideas.create_edit')->with('idea', $idea);
     }
+
+    public function update(Request $request, Idea $idea):RedirectResponse
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:100',
+            'description' => 'required|string|max:300'
+        ]);
+
+        $idea->update($validated);
+
+        return redirect(route('idea.index'));
+    }
+
+    public function show(Idea $idea): View
+    {
+        return view('ideas.show')->with('idea', $idea);
+    }
+
+    public function delete(Idea $idea):RedirectResponse
+    {
+        $idea->delete();
+
+        return redirect()->route('idea.index');
+    }
 }
